@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from './ui/Button'
 import { Input } from './ui/Input'
-import Checkbox from './ui/Checkbox'
+import { Checkbox } from './ui/Checkbox'
 
 type RegisterFormData = {
   name: string

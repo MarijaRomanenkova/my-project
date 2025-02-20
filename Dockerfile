@@ -3,19 +3,16 @@ FROM node:18-alpine
 # Install OpenSSL - using the correct package name
 RUN apk add --no-cache openssl
 
-# Install pnpm globally
-RUN npm install -g pnpm
-
 # Add non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
 
 # Copy dependency files
-COPY package*.json pnpm-lock.yaml ./
+COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies using pnpm
-RUN pnpm install
+# Install dependencies using npm
+RUN npm install
 
 # Generate Prisma client
 RUN npx prisma generate
@@ -24,7 +21,7 @@ RUN npx prisma generate
 COPY . .
 
 # Build the application
-RUN pnpm run build
+RUN npm run build
 
 # Set ownership to non-root user
 RUN chown -R appuser:appgroup /app
@@ -34,4 +31,4 @@ USER appuser
 
 EXPOSE 3000
 
-CMD npx prisma migrate deploy && pnpm start 
+CMD npx prisma migrate deploy && npm start 

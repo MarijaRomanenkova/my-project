@@ -8,7 +8,9 @@ export default function Home() {
   
   return (
     <main className="container mx-auto p-4">
+      <div className="flex justify-center items-center h-screen">Welcome Home page</div>
       <TasksList ref={listRef}/>
+    
     </main>
   )
 } 

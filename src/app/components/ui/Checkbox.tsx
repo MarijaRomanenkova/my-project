@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-const Checkbox = ({ isChecked, onChange }: { isChecked: boolean, onChange: (checked: boolean) => void }) => {
+export const Checkbox = ({ isChecked, onChange }: { isChecked: boolean, onChange: (checked: boolean) => void }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
   };
@@ -36,4 +34,4 @@ const Checkbox = ({ isChecked, onChange }: { isChecked: boolean, onChange: (chec
     </label>
   );
 };
-export default Checkbox;
+

@@ -3,17 +3,21 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  // Log the incoming request path
+  console.log('Incoming request path:', request.nextUrl.pathname);
+
   // Get the pathname of the request
   const path = request.nextUrl.pathname
 
-  // Paths that require authentication
-  const protectedPaths = ['/tasks/create', '/tasks/apply']
+  // Define protected paths for creating tasks
+  const protectedPaths = ['/api/tasks']
   
   // Check if the current path requires authentication
-  const isProtectedPath = protectedPaths.some(pp => path.startsWith(pp))
+  const isProtectedPath = request.method === 'POST' && protectedPaths.some(pp => path.startsWith(pp))
 
   if (isProtectedPath) {
     const token = await getToken({ req: request })
+    console.log('Token:', token); // Log the token for debugging
 
     if (!token) {
       const url = new URL('/login', request.url)
@@ -27,5 +31,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure which paths the middleware runs on
 export const config = {
-  matcher: ['/tasks/:path*']
+  matcher: ['/api/tasks/:path*']
 } 

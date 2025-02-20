@@ -1,6 +1,7 @@
 'use client'
 
 import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
+import { TaskCard } from '@/app/components/TaskCard'
 
 type Task = {
   id: string
@@ -33,14 +34,14 @@ export const TasksList = forwardRef((_, ref) => {
   return (
     <div className="grid gap-4 mt-6">
       {tasks.map((task) => (
-        <div key={task.id} className="p-4 border rounded-lg">
-          <h3 className="font-bold">{task.title}</h3>
-          <p>{task.description}</p>
-          <div className="mt-2 text-sm text-gray-500">
-            <span className="mr-2">{task.category}</span>
-            <span>by {task.author}</span>
-          </div>
-        </div>
+        <TaskCard
+          key={task.id}
+          title={task.title}
+          description={task.description}
+          category={task.category}
+          author={task.author}
+          createdAt={task.createdAt}
+        />
       ))}
     </div>
   )
